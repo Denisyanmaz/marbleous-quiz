@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  text: MyString
+  category: MyString
+  score: 1
+  quiz: one
+
+two:
+  text: MyString
+  category: MyString
+  score: 1
+  quiz: two
