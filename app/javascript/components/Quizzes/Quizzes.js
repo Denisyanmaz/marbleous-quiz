@@ -35,13 +35,11 @@ const Quizzes = () => {
 
   const grid = quizzes.map((quiz, index) => {
     const { title, description, image_path } = quiz.attributes
-
+    console.log(quiz)
     return (
       <Quiz
         key={index}
-        title={title}
-        description={description}
-        image_path={image_path}
+        quiz = {quiz}
       />
     )
   })

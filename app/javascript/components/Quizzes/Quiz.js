@@ -2,19 +2,20 @@ import React from 'react'
 import styled from 'styled-components'
 import { BrowserRouter as Router, Link } from 'react-router-dom'
 
-const Card = styled.div`
-  border: 1px solid #efefef;
-  background-image: url("assets/avengers");
-`
-
 const QuizName = styled.div`
   padding: 20px 0 10px 0;
   color: white;
+  font-size: 32px;
+`
+
+const QuizDesc = styled.div`
+  padding: 20px 0 10px 0;
+  color: white;
+  font-size: 18px;
 `
 
 const LinkWrapper = styled.div`
-  margin: 30px 0 20px 0;
-  height:50px;
+  margin: 20px 0 10px 0;
 
   a {
     color: #fff;
@@ -40,16 +41,23 @@ const LinkWrapper = styled.div`
   }
 `
 
-const Quiz = ({ title, description, image_path, ...props }) => {
+const Quiz = ({ quiz, ...props }) => {
   return (
-    <Card>
+    <div style={{
+      backgroundImage: `linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url(${quiz.attributes.image_path})`,
+        backgroundSize: "cover",
+        height: "200px"
+      }}>
       <QuizName>
-        {title}
+        {quiz.attributes.title}
       </QuizName>
+      <QuizDesc>
+        {quiz.attributes.description}
+      </QuizDesc>
       <LinkWrapper>
-        <Link to={"/quizzes"}>Let's GO!</Link>
+        <Link to={`/quizzes/${quiz.id}`}>Let's GO!</Link>
       </LinkWrapper>
-    </Card>
+    </div>
   )
 }
 
