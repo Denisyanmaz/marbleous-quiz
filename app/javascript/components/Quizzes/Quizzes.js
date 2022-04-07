@@ -26,7 +26,6 @@ const Grid = styled.div`
 
 const Quizzes = () => {
   const [quizzes, setQuizzes] = useState([]);
-
   useEffect(() => {
     axios.get('/quizzes')
       .then(resp => setQuizzes(resp.data.data))
@@ -35,10 +34,9 @@ const Quizzes = () => {
 
   const grid = quizzes.map((quiz, index) => {
     const { title, description, image_path } = quiz.attributes
-    console.log(quiz)
     return (
       <Quiz
-        key={index}
+        key = {index}
         quiz = {quiz}
       />
     )

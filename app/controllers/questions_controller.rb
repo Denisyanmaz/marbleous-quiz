@@ -4,7 +4,6 @@
 
       def index
         questions = Question.all
-
         render json: QuestionSerializer.new(questions, options).serialized_json
       end
 
@@ -47,7 +46,7 @@
       private
 
       def question_params
-        params.require(:question).permit(:text, :category, :score, :quiz_id)
+        params.require(:question).permit(:text, :category, :correct_answer, :quiz_id)
       end
 
       def options

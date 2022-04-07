@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { BrowserRouter as Router, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const QuizName = styled.div`
   padding: 20px 0 10px 0;
@@ -42,6 +43,30 @@ const LinkWrapper = styled.div`
 `
 
 const Quiz = ({ quiz, ...props }) => {
+  const [user_quiz, setUserQuiz] = useState({});
+  let navigate = useNavigate();
+  const handleClick = async (e) => {
+    e.preventDefault()
+    const user_id = 1
+    const quiz_id = parseInt(quiz.id)
+    await axios.post('/user_quizzes', { ...user_quiz, quiz_id, user_id})
+      .then((resp) => {
+        setUserQuiz()
+        let path = `/quizzes/${quiz_id}`;
+        navigate(path, { state: { id: quiz_id}});
+      })
+      .catch(resp => {
+        let error
+        switch (resp.message) {
+          case "Request failed with status code 401":
+            error = 'Please log in to leave a review.'
+            break
+          default:
+            error = 'Something went wrong.'
+        }
+        setError(error)
+      })
+  }
   return (
     <div style={{
       backgroundImage: `linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url(${quiz.attributes.image_path})`,
@@ -55,7 +80,7 @@ const Quiz = ({ quiz, ...props }) => {
         {quiz.attributes.description}
       </QuizDesc>
       <LinkWrapper>
-        <Link to={`/quizzes/${quiz.id}`}>Let's GO!</Link>
+        <button onClick={handleClick}>Let's GO!</button>
       </LinkWrapper>
     </div>
   )

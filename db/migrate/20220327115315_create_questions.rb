@@ -3,7 +3,7 @@ class CreateQuestions < ActiveRecord::Migration[6.0]
     create_table :questions do |t|
       t.string :text
       t.string :category
-      t.integer :score
+      t.string :correct_answer
       t.belongs_to :quiz, null: false, foreign_key: true
 
       t.timestamps

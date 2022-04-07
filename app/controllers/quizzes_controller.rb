@@ -4,13 +4,11 @@ class QuizzesController < ApplicationController
 
   def index
     quizzes = Quiz.all
-
     render json: QuizSerializer.new(quizzes, options).serialized_json
   end
 
   def show
     quiz = Quiz.find_by(id: params[:id])
-
     render json: QuizSerializer.new(quiz, options).serialized_json
   end
 
@@ -47,7 +45,7 @@ class QuizzesController < ApplicationController
   private
 
   def quiz_params
-    params.require(:quiz).permit(:title, :description, :image_path)
+    params.require(:quiz).permit(:title, :image_path)
   end
 
   def options

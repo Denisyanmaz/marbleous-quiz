@@ -47,7 +47,7 @@
       private
 
       def user_quiz_params
-        params.require(:user_quiz).permit(:result, :created_at, :quiz_id, :user_id)
+        params.require(:user_quiz).permit(:result, :is_done, :created_at, :quiz_id, :user_id)
       end
 
       def options

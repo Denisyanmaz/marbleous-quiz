@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 2022_03_27_115919) do
 
   create_table "options", force: :cascade do |t|
     t.string "content"
-    t.boolean "is_true"
     t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -27,7 +26,7 @@ ActiveRecord::Schema.define(version: 2022_03_27_115919) do
   create_table "questions", force: :cascade do |t|
     t.string "text"
     t.string "category"
-    t.integer "score"
+    t.string "correct_answer"
     t.bigint "quiz_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -36,7 +35,6 @@ ActiveRecord::Schema.define(version: 2022_03_27_115919) do
 
   create_table "quizzes", force: :cascade do |t|
     t.string "title"
-    t.string "description"
     t.string "image_path"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
