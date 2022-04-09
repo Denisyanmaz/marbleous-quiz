@@ -1,0 +1,158 @@
+index.html .index-bg {
+  background-color: #F3F4F6;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Home.jsx */
+.home {
+  display: flex;
+  margin-top: 4rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Quiz.jsx */
+.quiz {
+  display: flex;
+  margin-top: 4rem;
+  justify-content: center;
+}
+
+/* SubjectCard.jsx */
+.subcard-link {
+  margin: 2.5rem;
+  background-color: #ffffff;
+  width: 18rem;
+  height: 20rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* SubjectCard.jsx */
+.subcard-h2 {
+  padding-top: 6rem;
+  color: #ffffff;
+  font-family: "Dosis";
+  font-size: 2.25rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Status.jsx */
+.correct {
+  margin-top: 3rem;
+  color: #10B981;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  font-family: "Dosis";
+}
+
+/* Status.jsx */
+.wrong {
+  margin-top: 3rem;
+  color: #EF4444;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  font-family: "Dosis";
+}
+
+/* Header.jsx */
+.header {
+  margin-top: 8rem;
+  color: #1F2937;
+  font-family: "Dosis";
+  font-size: 2rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  text-align: center;
+
+
+  @media (min-width: 768px) {
+    margin-top: 12rem;
+  }
+
+  @media (min-width: 1024px) {
+    margin-top: 16rem;
+  }
+}
+
+/* EndQuiz.jsx */
+.endquiz-h1 {
+  color: #1F2937;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* EndQuiz.jsx */
+.endquiz-green {
+  color: #10B981;
+}
+
+/* EndQuiz.jsx */
+.endquiz-red {
+  color: #EF4444;
+}
+
+/* EndQuiz.jsx */
+.endquiz-return {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* AnswerCard.jsx */
+.answercard-main {
+  background-color: #F9FAFB;
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* AnswerCard.jsx */
+.answercard-sub {
+  padding-bottom: 0.5rem;
+  padding-top: 1.5rem;
+}
+
+/* Answer.jsx */
+.answer-main {
+  display: flex;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-bottom: 1rem;
+  background-color: #F3F4F6;
+  align-items: center;
+  width: 37rem;
+  height: 4rem;
+  border-radius: 0.375rem;
+}
+
+/* Answer.jsx */
+.answer-label {
+  margin-left: 1rem;
+  color: #374151;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+}
+
+/* Answer.jsx */
+.answer-input {
+  margin-left: 1.25rem;
+}
+
+.disable-link {
+  pointer-events: none;
+}

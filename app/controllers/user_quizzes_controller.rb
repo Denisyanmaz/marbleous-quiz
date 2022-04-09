@@ -1,6 +1,5 @@
     class UserQuizzesController < ApplicationController
       skip_before_action :authenticate_user!
-      protect_from_forgery with: :null_session
 
       def index
         user_quizzes = UserQuiz.all
