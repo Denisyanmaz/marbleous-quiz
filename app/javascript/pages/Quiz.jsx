@@ -8,48 +8,85 @@ import EndQuiz from "../components/EndQuiz";
 import axios from "axios"
 
 
-const Quiz = () => {
+const Quiz = (props) => {
   const [questionNumber, setQuestionNumber] = useState(0);
   const [numCorrect, setNumCorrect] = useState(0);
   const [statusShown, setStatusShown] = useState(false);
   const [currentQuestionCorrect, setCurrentQuestionCorrect] = useState(false);
-  const [questions, setQuestions] = useState(false);
+  const [questions, setQuestions] = useState([]);
   const [response, setResponse] = useState([])
+  const [userQuiz, setUserQuiz] = useState({})
   const { id } = useParams();
+  const { userQuizzes, activeUser } = props
+  let quizIncomplete = userQuizzes.filter(x => x.attributes.quiz_id.toString() === id).find(x => x.attributes.is_done === null)
+
 
   useEffect(async () => {
     await axios.get("http://localhost:3000/questions")
       .then(resp => {
         setResponse(resp.data)
         setQuestions(resp.data.data.filter(x => x.attributes.quiz_id.toString() === id))
-    })
+      })
       .catch(data => console.log('error', data))
-  }, [])
+    if (quizIncomplete) {
+      setUserQuiz(quizIncomplete);
+      await axios.get("http://localhost:3000/user_choices")
+        .then(resp => {
+          const userChoices = resp.data.data.filter(x => x.attributes.user_quiz_id.toString() === quizIncomplete.id)
+          continueQuiz(userChoices)
+        })
+        .catch(data => console.log('error', data))
+  } else {
+      await axios.post("http://localhost:3000/user_quizzes", { "user_id": activeUser.id, "quiz_id": id })
+      .then(resp => setUserQuiz(resp.data.data))
+      .catch(data => console.log('error', data))
+  }}, [])
+
+  const continueQuiz = (userChoices) => {
+    userChoices.forEach((userChoice) => {
+      if (userChoice.attributes.is_correct) {
+        setNumCorrect(numCorrect + 1)
+      }
+    });
+    setQuestionNumber(userChoices.length);
+  }
+
+  // user quizleri quiz_id ile filtrele ve içinde is_done: false olanı bul
+  // is_done false olan yoksa ya da quiz yoksa post request user_quiz
+  //varsa continueQuiz(user_quiz_id) çalışacak
 
 
-   const handleClick = (answer) => {
+
+  // if user_quiz // eğer user quiz varsa ve is_done değilse çalışacak
+  //continueQuiz()
+
+
+  const handleClick = async (answer) => {
     setStatusShown(true);
     const correctAnswer = questions[questionNumber].attributes.correct_answer;
-    answer === correctAnswer ? setStatus("correct") : setStatus("wrong");
+    let isCorrect = (answer.attributes.content === correctAnswer)
+    isCorrect ? setStatus("correct") : setStatus("wrong");
+    await axios.post("http://localhost:3000/user_choices", { "option_id": answer.id, "user_quiz_id": userQuiz.id, "is_correct": isCorrect })
+      .then(resp => console.log("user_choice_response", resp))
+      .catch(data => console.log('error', data))
   }
 
   const setStatus =(status) => {
       if (status === "correct") {
-        setNumCorrect( numCorrect + 1 );
+        setNumCorrect(numCorrect + 1);
         setCurrentQuestionCorrect(true);
       } else {
         setCurrentQuestionCorrect(false);
       }
-    setTimeout(() => switchQuestion(), 750);
+    setTimeout(() => switchQuestion(questions), 750);
   }
 
-  const switchQuestion = () => {
+  const switchQuestion = (questions) => {
     setStatusShown(false);
     setQuestionNumber(questionNumber < questions.length - 1 ? questionNumber + 1 : false);
   }
-  if (questions !== false) {
+  if (questions.length) {
   if (questionNumber !== false) {
-    console.log(response)
    let questionOptions = []
     for (let i = 0; i < questions.length; i++) {
       let opt = response.included.filter(x => x.attributes.question_id.toString() === questions[i].id)
@@ -57,7 +94,6 @@ const Quiz = () => {
     }
     const question = questions[questionNumber];
     const option = questionOptions[questionNumber];
-    console.log("zzz", option)
     return (
       <div>
         <Header>{question.attributes.text}</Header>
@@ -74,7 +110,7 @@ const Quiz = () => {
       </div>
     );
   }
-  return <EndQuiz numCorrect={numCorrect} qCount = {questions.length} />;}
+  return <EndQuiz numCorrect={numCorrect} qCount = {questions.length} userQuizId = {userQuiz.id} />;}
   return <div></div>
 }
 

@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2022_03_27_115919) do
   create_table "user_choices", force: :cascade do |t|
     t.bigint "user_quiz_id", null: false
     t.bigint "option_id", null: false
+    t.boolean "is_correct", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["option_id"], name: "index_user_choices_on_option_id"

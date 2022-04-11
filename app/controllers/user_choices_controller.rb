@@ -46,6 +46,6 @@
       private
 
       def user_choice_params
-        params.require(:user_choice).permit(:option_id, :user_quiz_id)
+        params.require(:user_choice).permit(:option_id, :user_quiz_id, :is_correct)
       end
     end

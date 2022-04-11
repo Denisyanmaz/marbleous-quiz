@@ -5,7 +5,7 @@ const Answer = (props) => {
   return (
     <div
       className="answer-main"
-      onClick={() => props.onClick(answer.attributes.content)}
+      onClick={() => props.onClick(answer)}
     >
       <input
         type="radio"
