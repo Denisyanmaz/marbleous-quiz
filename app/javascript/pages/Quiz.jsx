@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 
 import Header from "../components/Header";
 import AnswerCard from "../components/AnswerCard";
@@ -41,7 +41,6 @@ const Quiz = (props) => {
       .then(resp => setUserQuiz(resp.data.data))
       .catch(data => console.log('error', data))
   }}, [])
-
   const continueQuiz = (userChoices) => {
     userChoices.forEach((userChoice) => {
       if (userChoice.attributes.is_correct) {
@@ -86,31 +85,37 @@ const Quiz = (props) => {
     setQuestionNumber(questionNumber < questions.length - 1 ? questionNumber + 1 : false);
   }
   if (questions.length) {
-  if (questionNumber !== false) {
-   let questionOptions = []
-    for (let i = 0; i < questions.length; i++) {
-      let opt = response.included.filter(x => x.attributes.question_id.toString() === questions[i].id)
-      questionOptions.push(opt)
+    if (questionNumber !== false) {
+      let questionOptions = []
+      for (let i = 0; i < questions.length; i++) {
+        let opt = response.included.filter(x => x.attributes.question_id.toString() === questions[i].id)
+        questionOptions.push(opt)
+      }
+      const question = questions[questionNumber];
+      const option = questionOptions[questionNumber];
+      return (
+        <div>
+          <Link to={`/`} className="home-button">Home</Link>
+          <Header>{question.attributes.text}</Header>
+            <div className="quiz">
+              <AnswerCard
+                option={option}
+                onClick={handleClick}
+              />
+            </div>
+
+          {statusShown && (
+              <Status correct={currentQuestionCorrect} />
+          )}
+        </div>
+      );
     }
-    const question = questions[questionNumber];
-    const option = questionOptions[questionNumber];
     return (
       <div>
-        <Header>{question.attributes.text}</Header>
-          <div className="quiz">
-            <AnswerCard
-              option={option}
-              onClick={handleClick}
-            />
-          </div>
-
-        {statusShown && (
-            <Status correct={currentQuestionCorrect} />
-        )}
+        <Link to={`/`} className="home-button">Home</Link>
+        <EndQuiz numCorrect={numCorrect} qCount = {questions.length} userQuizId = {userQuiz.id} />;
       </div>
-    );
-  }
-  return <EndQuiz numCorrect={numCorrect} qCount = {questions.length} userQuizId = {userQuiz.id} />;}
+    )}
   return <div></div>
 }
 

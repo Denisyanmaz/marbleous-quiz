@@ -48,6 +48,6 @@ class QuizzesController < ApplicationController
   end
 
   def options
-    @options ||= { include: %i[questions] }
+    @options ||= { include: %i[user_quizzes] }
   end
 end

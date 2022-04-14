@@ -8,7 +8,7 @@ const Answer = (props) => {
       onClick={() => props.onClick(answer)}
     >
       <input
-        type="radio"
+        type="hidden"
         name="answer"
         className="answer-input"
       />
