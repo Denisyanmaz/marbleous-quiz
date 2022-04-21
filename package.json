@@ -1,6 +1,9 @@
 {
   "name": "marbleous_quiz",
   "private": true,
+  "engines": {
+    "node": "14.15.5"
+  },
   "dependencies": {
     "@babel/preset-react": "^7.16.7",
     "@rails/actioncable": "^6.0.0",
