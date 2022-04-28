@@ -13,7 +13,7 @@ const Home = () => {
   }
 
   useEffect(async() => {
-    await axios.get("http://localhost:3000/quizzes")
+    await axios.get("https://marbleous-quiz.herokuapp.com/quizzes")
       .then(resp => {
         setUserQuizzes(resp.data.included.filter(x => x.attributes.user_id === activeUser.id))
         setQuizzes(resp.data.data)})

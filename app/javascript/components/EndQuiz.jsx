@@ -5,7 +5,7 @@ function EndQuiz(props) {
   const percentCorrect = (100 * props.numCorrect) / props.qCount;
 
   useEffect(async () => {
-    await axios.patch(`http://localhost:3000/user_quizzes/${props.userQuizId}`, { "is_done": true, "result": props.numCorrect})
+    await axios.patch(`https://marbleous-quiz.herokuapp.com/user_quizzes/${props.userQuizId}`, { "is_done": true, "result": props.numCorrect})
     .then(resp => console.log("user_quiz_response", resp))
     .catch(data => console.log('error', data))
   })

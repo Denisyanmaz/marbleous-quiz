@@ -11,7 +11,7 @@ const App = () => {
   if (currentUser) {
     activeUser = JSON.parse(currentUser.dataset.user)
     useEffect(async () => {
-      await axios.get("http://localhost:3000/user_quizzes")
+      await axios.get("https://marbleous-quiz.herokuapp.com/user_quizzes")
         .then(resp => {
           setUserQuizzes(resp.data.data.filter(x => x.attributes.user_id === activeUser.id))
         })

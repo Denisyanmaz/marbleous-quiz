@@ -22,7 +22,7 @@ const Quiz = (props) => {
 
 
   useEffect(async () => {
-    await axios.get("http://localhost:3000/questions")
+    await axios.get("https://marbleous-quiz.herokuapp.com/questions")
       .then(resp => {
         setResponse(resp.data)
         setQuestions(resp.data.data.filter(x => x.attributes.quiz_id.toString() === id))
@@ -30,14 +30,14 @@ const Quiz = (props) => {
       .catch(data => console.log('error', data))
     if (quizIncomplete) {
       setUserQuiz(quizIncomplete);
-      await axios.get("http://localhost:3000/user_choices")
+      await axios.get("https://marbleous-quiz.herokuapp.com/user_choices")
         .then(resp => {
           const userChoices = resp.data.data.filter(x => x.attributes.user_quiz_id.toString() === quizIncomplete.id)
           continueQuiz(userChoices)
         })
         .catch(data => console.log('error', data))
   } else {
-      await axios.post("http://localhost:3000/user_quizzes", { "user_id": activeUser.id, "quiz_id": id })
+      await axios.post("https://marbleous-quiz.herokuapp.com/user_quizzes", { "user_id": activeUser.id, "quiz_id": id })
       .then(resp => setUserQuiz(resp.data.data))
       .catch(data => console.log('error', data))
   }}, [])
@@ -65,7 +65,7 @@ const Quiz = (props) => {
     const correctAnswer = questions[questionNumber].attributes.correct_answer;
     let isCorrect = (answer.attributes.content === correctAnswer)
     isCorrect ? setStatus("correct") : setStatus("wrong");
-    await axios.post("http://localhost:3000/user_choices", { "option_id": answer.id, "user_quiz_id": userQuiz.id, "is_correct": isCorrect })
+    await axios.post("https://marbleous-quiz.herokuapp.com/user_choices", { "option_id": answer.id, "user_quiz_id": userQuiz.id, "is_correct": isCorrect })
       .then(resp => console.log("user_choice_response", resp))
       .catch(data => console.log('error', data))
   }
